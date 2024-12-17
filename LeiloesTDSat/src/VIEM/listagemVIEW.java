@@ -154,6 +154,8 @@ public class listagemVIEW extends javax.swing.JFrame {
         }
     } else {
         JOptionPane.showMessageDialog(null, "Informe o ID do produto!");
+    
+        System.out.println("Botão de vendas Funcionado!! :D");
     }
     }//GEN-LAST:event_btnVenderActionPerformed
 
