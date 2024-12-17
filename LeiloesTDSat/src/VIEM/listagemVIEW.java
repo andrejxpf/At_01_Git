@@ -1,11 +1,12 @@
+package VIEM;
 
+
+import DTO.ProdutosDTO;
+import DAO.ProdutosDAO;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 
 /**
  *
@@ -136,14 +137,51 @@ public class listagemVIEW extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVenderActionPerformed
-        String id = id_produto_venda.getText();
-        
-        ProdutosDAO produtosdao = new ProdutosDAO();
-        
-        //produtosdao.venderProduto(Integer.parseInt(id));
-        listarProdutos();
+      String id = id_produto_venda.getText();
+    
+    if (!id.isEmpty()) {
+        try {
+            int idProduto = Integer.parseInt(id);
+            ProdutosDAO produtosDAO = new ProdutosDAO();
+            if (produtosDAO.venderProduto(idProduto)) {
+                JOptionPane.showMessageDialog(null, "Produto vendido com sucesso!");
+                listarProdutosVendidos(); // Atualiza a  lista
+            } else {
+                JOptionPane.showMessageDialog(null, "Erro ao vender produto!");
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "ID inválido!");
+        }
+    } else {
+        JOptionPane.showMessageDialog(null, "Informe o ID do produto!");
+    }
     }//GEN-LAST:event_btnVenderActionPerformed
 
+    private void listarProdutosVendidos() {
+    try {
+        ProdutosDAO produtosdao = new ProdutosDAO();
+        DefaultTableModel model = (DefaultTableModel) listaProdutos.getModel();
+        model.setNumRows(0);
+        
+        // Supondo que você tenha um método listarProdutosVendidos() na classe ProdutosDAO
+        ArrayList<ProdutosDTO> listagemVendidos = produtosdao.listarProdutosVendidos(); 
+        
+        for (int i = 0; i < listagemVendidos.size(); i++) {
+            model.addRow(new Object[]{
+                listagemVendidos.get(i).getId(),
+                listagemVendidos.get(i).getNome(),
+                listagemVendidos.get(i).getValor(),
+                listagemVendidos.get(i).getStatus()
+            });
+        }
+    } catch (Exception e) {
+        e.printStackTrace(); // Melhor maneira de capturar e exibir erros durante a execução
+    }
+}
+
+    
+    
+    
     private void btnVendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVendasActionPerformed
        ProdutosDAO produtodao = new ProdutosDAO();
     ArrayList<ProdutosDTO> lista = produtodao.listarProdutos();
