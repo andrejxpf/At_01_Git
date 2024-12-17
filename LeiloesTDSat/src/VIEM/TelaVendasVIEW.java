@@ -34,7 +34,7 @@ public class TelaVendasVIEW extends javax.swing.JFrame {
                 produto.getStatus()
             });
         }
-
+        
     }
 
     /**
@@ -63,6 +63,15 @@ public class TelaVendasVIEW extends javax.swing.JFrame {
                 "Produto", "Status"
             }
         ));
+        tabelaVendas.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                tabelaVendasAncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
         jScrollPane1.setViewportView(tabelaVendas);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -120,6 +129,10 @@ public class TelaVendasVIEW extends javax.swing.JFrame {
         new TelaPrincipalViem().setVisible(true); // Mostrar TelaPrincipalViem
 
     }//GEN-LAST:event_BtnVoltarActionPerformed
+
+    private void tabelaVendasAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_tabelaVendasAncestorAdded
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tabelaVendasAncestorAdded
 
     /**
      * @param args the command line arguments
